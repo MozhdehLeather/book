@@ -1,0 +1,504 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KK Book Diary - Profile</title>
+        <style>
+            /* CSS Variables for Monochromatic Theme */
+            :root {
+                --color-black: #0b0b0b;
+                --color-white: #ffffff;
+                --color-gray-50: #fafafa;
+                --color-gray-100: #f5f5f5;
+                --color-gray-200: #e6e6e6;
+                --color-gray-300: #d4d4d4;
+                --color-gray-400: #a3a3a3;
+                --color-gray-500: #737373;
+                --color-gray-600: #525252;
+                --color-gray-700: #404040;
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                --radius-sm: 4px;
+                --radius-md: 8px;
+                --radius-lg: 12px;
+                --radius-full: 9999px;
+            }
+
+            /* Base Styles */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+                color: var(--color-black);
+                background-color: var(--color-white);
+                line-height: 1.5;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 2rem 1rem;
+                flex: 1;
+            }
+
+            /* Header */
+            .header {
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--color-gray-200);
+                margin-bottom: 2rem;
+            }
+
+            .header-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                text-decoration: none;
+                color: var(--color-black);
+            }
+
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+                border-radius: var(--radius-sm);
+                border: 1px solid var(--color-gray-300);
+                background: var(--color-white);
+                color: var(--color-gray-700);
+                text-decoration: none;
+                font-size: 0.875rem;
+                transition: all 0.15s ease;
+            }
+
+            .back-btn:hover {
+                border-color: var(--color-black);
+                color: var(--color-black);
+            }
+
+            /* Profile Card */
+            .profile-card {
+                background: var(--color-white);
+                border-radius: var(--radius-md);
+                border: 1px solid var(--color-gray-200);
+                box-shadow: var(--shadow-sm);
+                overflow: hidden;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .profile-header {
+                background: var(--color-gray-50);
+                padding: 2rem;
+                text-align: center;
+                border-bottom: 1px solid var(--color-gray-200);
+            }
+
+            .profile-avatar {
+                width: 160px;
+                height: 160px;
+                border-radius: var(--radius-full);
+                object-fit: cover;
+                border: 4px solid var(--color-white);
+                box-shadow: var(--shadow-md);
+                margin-bottom: 1.5rem;
+            }
+
+            .profile-name {
+                font-size: 2rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+
+            .profile-date {
+                font-size: 1rem;
+                color: var(--color-gray-500);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .profile-content {
+                padding: 2rem;
+            }
+
+            .info-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .info-item {
+                padding: 1rem;
+                background: var(--color-gray-50);
+                border-radius: var(--radius-sm);
+                border: 1px solid var(--color-gray-200);
+            }
+
+            .info-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: var(--color-gray-500);
+                margin-bottom: 0.5rem;
+            }
+
+            .info-value {
+                font-size: 1rem;
+                color: var(--color-black);
+                line-height: 1.4;
+            }
+
+            .note-section {
+                margin-top: 2rem;
+                padding-top: 2rem;
+                border-top: 1px solid var(--color-gray-200);
+            }
+
+            .note-label {
+                font-size: 0.875rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: var(--color-gray-500);
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .note-content {
+                font-size: 1.125rem;
+                line-height: 1.6;
+                color: var(--color-gray-700);
+                white-space: pre-wrap;
+            }
+
+            /* Actions */
+            .actions {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 2rem;
+                padding-top: 2rem;
+                border-top: 1px solid var(--color-gray-200);
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                padding: 0.625rem 1.25rem;
+                border-radius: var(--radius-sm);
+                font-size: 0.875rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                border: none;
+                text-decoration: none;
+            }
+
+            .btn-primary {
+                background-color: var(--color-black);
+                color: var(--color-white);
+            }
+
+            .btn-primary:hover {
+                background-color: var(--color-gray-800);
+            }
+
+            .btn-outline {
+                border: 1px solid var(--color-gray-300);
+                color: var(--color-gray-700);
+                background-color: var(--color-white);
+            }
+
+            .btn-outline:hover {
+                border-color: var(--color-black);
+                color: var(--color-black);
+            }
+
+            /* Error State */
+            .error-state {
+                text-align: center;
+                padding: 4rem 1rem;
+            }
+
+            .error-state svg {
+                margin: 0 auto 1.5rem;
+                color: var(--color-gray-300);
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: var(--color-gray-700);
+            }
+
+            .error-message {
+                color: var(--color-gray-500);
+                margin-bottom: 2rem;
+            }
+
+            /* Loading State */
+            .loading {
+                opacity: 0.6;
+                pointer-events: none;
+            }
+
+            /* Footer */
+            .footer {
+                text-align: center;
+                padding: 2rem 1rem;
+                border-top: 1px solid var(--color-gray-200);
+                margin-top: 3rem;
+                color: var(--color-gray-500);
+                font-size: 0.875rem;
+            }
+
+            /* Icons */
+            .icon {
+                width: 20px;
+                height: 20px;
+                stroke: currentColor;
+                stroke-width: 2;
+                fill: none;
+            }
+
+            .icon-sm {
+                width: 16px;
+                height: 16px;
+            }
+
+            .icon-lg {
+                width: 24px;
+                height: 24px;
+            }
+
+            /* Utility Classes */
+            .text-center {
+                text-align: center;
+            }
+
+            .mt-2 {
+                margin-top: 0.5rem;
+            }
+
+            .mt-4 {
+                margin-top: 1rem;
+            }
+
+            .mb-4 {
+                margin-bottom: 1rem;
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div class="header-content">
+                    <a href="/admin.html" class="logo">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        </svg>
+                        profile
+                    </a>
+                    
+                </div>
+            </header>
+
+            <main>
+                <div id="loadingState" class="text-center">
+                    <p>Loading profile...</p>
+                </div>
+
+                <div id="profileContent" class="hidden">
+                    <!-- Profile content will be loaded here -->
+                </div>
+
+                <div id="errorState" class="error-state hidden">
+                    <svg class="icon" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <div class="error-title">Profile Not Found</div>
+                    <p class="error-message">The profile you're looking for doesn't exist or has been removed.</p>
+                    <a href="/admin.html" class="btn btn-primary">
+                        <svg class="icon icon-sm" viewBox="0 0 24 24">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                        Go to Admin
+                    </a>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <p>KK Book Diary • Personal Profile Sharing</p>
+            </footer>
+        </div>
+
+        <script>
+            // Get profile ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const profileId = urlParams.get('id');
+
+            // DOM Elements
+            const loadingState = document.getElementById('loadingState');
+            const profileContent = document.getElementById('profileContent');
+            const errorState = document.getElementById('errorState');
+
+            // Load profile data
+            async function loadProfile() {
+                if (!profileId) {
+                    showError();
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/api/profiles/${profileId}`);
+                    
+                    if (!response.ok) {
+                        throw new Error('Profile not found');
+                    }
+                    
+                    const profile = await response.json();
+                    renderProfile(profile);
+                    
+                } catch (error) {
+                    console.error('Error loading profile:', error);
+                    showError();
+                } finally {
+                    loadingState.classList.add('hidden');
+                }
+            }
+
+            function renderProfile(profile) {
+                const formattedDate = new Date(profile.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                profileContent.innerHTML = `
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <img src="${profile.photoUrl}" 
+                                alt="${escapeHtml(profile.name)}" 
+                                class="profile-avatar"
+                                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgdmlld0JveD0iMCAwIDE2MCAxNjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxNjAiIGZpbGw9IiNmNWY1ZjUiIHJ4PSI4MCIvPjxwYXRoIGQ9Ik04MCA5M0M5Ni41Njg1IDkzIDExMCA3OS41Njg1IDExMCA2M0MxMTAgNDYuNDMxNSA5Ni41Njg1IDMzIDgwIDMzQzYzLjQzMTUgMzMgNTAgNDYuNDMxNSA1MCA2M0M1MCA3OS41Njg1IDYzLjQzMTUgOTMgODAgOTNaIiBmaWxsPSIjZDRkNGQ0Ii8+PHBhdGggZD0iTTAgMTYwQzExLjkyMzkgMCAzNS40MjA0IDAgNTMuMzMzMyAwQzcxLjI0NjMgMCA4OC43NTM3IDAgMTA2LjY2NjcgMEMxMjQuNTggMCAxNDIuMDc2MSAwIDE1NCAwQzE2NS45MjM5IDAgMTYwIDExLjkyMzkgMTYwIDIzLjMzMzNDMTYwIDM0Ljc0MjcgMTYwIDQ1LjI1NzMgMTYwIDUzLjMzMzNDMTYwIDYxLjQwOTMgMTYwIDcxLjkxNzMgMTYwIDgyLjY2NjdDMTYwIDkzLjQxNjEgMTUwLjI1IDk5LjMzMzMgMTM2LjY2NjcgOTkuMzMzM0MxMjMuMDgzMyA5OS4zMzMzIDEwNi45MTY3IDk5LjMzMzMgOTMuMzMzMyA5OS4zMzMzQzc5Ljc1IDk5LjMzMzMgNjYuMjUgOTkuMzMzMyA1My4zMzMzIDk5LjMzMzNDNDAuNDE2NyA5OS4zMzMzIDI1LjU4MzMgOTkuMzMzMyAxMy4zMzMzIDk5LjMzMzNDMS4wODMzMyA5OS4zMzMzIDAgOTMuNDE2MSAwIDgyLjY2NjdDMCA3MS45MTczIDAgNjEuNDA5MyAwIDUzLjMzMzNDMCA0NS4yNTczIDAgMzQuNzQyNyAwIDIzLjMzMzNDMCAxMS45MjM5IDEwLjA3NjEgMCAyMiAwQzMzLjkyMzkgMCA1MCAwIDY2LjY2NjcgMEM4My4zMzMzIDAgMTAwIDAgMTE2LjY2NjcgMEMxMzMuMzMzMyAwIDE1MCAxMS45MjM5IDE1MCAyMy4zMzMzWiIgZmlsbD0iI2U2ZTZlNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTMgNjApIi8+PC9zdmc+'">
+                            <div class="profile-name">${escapeHtml(profile.name)}</div>
+                            <div class="profile-date">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                ${formattedDate}
+                            </div>
+                        </div>
+                        
+                        <div class="profile-content">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <svg class="icon icon-xs" viewBox="0 0 24 24">
+                                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/>
+                                            <circle cx="12" cy="10" r="3"/>
+                                        </svg>
+                                        Address
+                                    </div>
+                                    <div class="info-value">${escapeHtml(profile.address)}</div>
+                                </div>
+                                
+                                ${profile.contact ? `
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <svg class="icon icon-xs" viewBox="0 0 24 24">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                        </svg>
+                                        Contact
+                                    </div>
+                                    <div class="info-value">${escapeHtml(profile.contact)}</div>
+                                </div>
+                                ` : ''}
+                            </div>
+                            
+                            <div class="note-section">
+                                <div class="note-label">
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                        <line x1="16" y1="13" x2="8" y2="13"/>
+                                        <line x1="16" y1="17" x2="8" y2="17"/>
+                                        <polyline points="10 9 9 9 8 9"/>
+                                    </svg>
+                                    Note
+                                </div>
+                                <div class="note-content">${escapeHtml(profile.note)}</div>
+                            </div>
+                            
+                            <div class="actions">
+                                <a href="${profile.photoUrl}" 
+                                download="${profile.name.toLowerCase().replace(/\s+/g, '-')}-photo.jpg" 
+                                class="btn btn-primary">
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="7 10 12 15 17 10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>
+                                    Download Photo
+                                </a>
+                            
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                profileContent.classList.remove('hidden');
+            }
+
+            function showError() {
+                loadingState.classList.add('hidden');
+                errorState.classList.remove('hidden');
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // Initialize
+            document.addEventListener('DOMContentLoaded', loadProfile);
+        </script>
+    </body>
+    </html> 
